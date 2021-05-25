@@ -86,9 +86,9 @@ def main():
 		os.makedirs(arwpost_out_dir)
 
 	data_na = {
-		'start_date': full_start_date,
-		'end_date': full_end_date,
-		'input_root': os.path.join(conf.wrf_file_dir, start_date.strftime(conf.wrf_file_fmt)),
+		'start_date' : full_start_date,
+		'end_date'   : full_end_date,
+		'input_root' : os.path.join(conf.wrf_file_dir, start_date.strftime(conf.wrf_file_fmt)),
 		'output_root': os.path.join(arwpost_out_dir,start_date.strftime(conf.arwpost_file_fmt))
 	}
 
