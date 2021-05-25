@@ -4,7 +4,8 @@
 	nazmul@rimes.int
 '''
 
-import config as conf, os 
+import sys, os 
+import config as conf
 from jinja2 import Template
 from datetime import datetime as dt, timedelta as delt
 
@@ -41,13 +42,13 @@ def save_namelist_arwpost(data:dict)->int:
 		return 0
 
 
-def main():
+def main(start_date:str, sim_utc:str):
 
-	start_date = dt.today()
+	start_date = dt.strptime(start_date, '%Y%m%d')
 	end_date = start_date+delt(days=conf.num_day)
 
-	full_start_date = start_date.strftime(conf.full_date_fmt)
-	full_end_date = end_date.strftime(conf.full_date_fmt)
+	full_start_date = start_date.strftime(conf.full_date_fmt(sim_utc))
+	full_end_date = end_date.strftime(conf.full_date_fmt(sim_utc))
 
 	# namelist.wps file generation 2006-08-16_12:00:00
 	data_nw = {
@@ -62,12 +63,12 @@ def main():
 		'start_year' : start_date.year,
 		'start_month': start_date.month,
 		'start_day'  : start_date.day,
-		'start_hour' : conf.sim_hour,
+		'start_hour' : sim_utc,
 
 		'end_year' : end_date.year,
 		'end_month': end_date.month,
 		'end_day'  : end_date.day,
-		'end_hour' : conf.sim_hour,
+		'end_hour' : sim_utc,
 	}
 
 	save_namelist_input(data_ni)
@@ -76,7 +77,7 @@ def main():
 	
 	arwpost_out_dir = os.path.join(
 						conf.arwpost_output_dir,
-						start_date.strftime(conf.arwpost_file_fmt)
+						start_date.strftime( conf.arwpost_file_fmt(sim_utc) )
 					) \
 					if conf.arwpost_date_sep_dir \
 					else os.path.join(conf.arwpost_output_dir)
@@ -88,8 +89,8 @@ def main():
 	data_na = {
 		'start_date' : full_start_date,
 		'end_date'   : full_end_date,
-		'input_root' : os.path.join(conf.wrf_file_dir, start_date.strftime(conf.wrf_file_fmt)),
-		'output_root': os.path.join(arwpost_out_dir,start_date.strftime(conf.arwpost_file_fmt))
+		'input_root' : os.path.join(conf.wrf_file_dir, start_date.strftime(conf.wrf_file_fmt(sim_utc))),
+		'output_root': os.path.join(arwpost_out_dir,start_date.strftime(conf.arwpost_file_fmt(sim_utc)))
 	}
 
 
@@ -99,5 +100,11 @@ def main():
 
 
 if __name__=='__main__':
-	main()
+	
+	if len(sys.argv) == 3:
+		_, start_date, sim_utc = sys.argv
+		main(start_date,int(sim_utc))
+	else:
+		print('insuffient argument; provide sim start date (yyyymmdd) and sim utc (00/12)')
+
 
