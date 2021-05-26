@@ -2,8 +2,6 @@
 
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-cd $BASE_DIR
-
 GFS_DIR='./test/gfs_data'
 DATE=`date +'%Y%m%d'`
 SIM_UTC='12'
@@ -23,6 +21,6 @@ else
 	mkdir -p $GFS_DIR
 fi
 
-python3 ./download_gfs_recursive.py $GFS_DIR $DATE $SIM_UTC
+python3 $BASE_DIR/download_gfs_recursive.py $GFS_DIR $DATE $SIM_UTC
 
 echo 'downlod done initiate copy'

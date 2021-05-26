@@ -38,7 +38,7 @@ headers = {
 def down_from_url(args):
 
 	url,gribfile,dist_dir = args
-	
+
 	try:
 		req_dat = req.get(url,headers=headers)
 
