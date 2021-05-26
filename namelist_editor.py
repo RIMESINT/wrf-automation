@@ -89,7 +89,7 @@ def main(start_date:str, sim_utc:str):
 	data_na = {
 		'start_date' : full_start_date,
 		'end_date'   : full_end_date,
-		'input_root' : os.path.join(conf.wrf_file_dir, start_date.strftime(conf.wrf_file_fmt(sim_utc))),
+		'input_root' : os.path.join(conf.wrf_dir, start_date.strftime(conf.wrf_file_fmt(sim_utc))),
 		'output_root': os.path.join(arwpost_out_dir,start_date.strftime(conf.arwpost_file_fmt(sim_utc)))
 	}
 

@@ -4,6 +4,9 @@
 This scripts keeps looking for file if not available
 waits 1 minute and runs again
 
+Pain Point:
+	Config file is not used as this essentially runs on another server
+
 Note: 
 	- nomads servers allow only 120 requests per minute
 	- spawning 5 threads with 1 minute sleep so max possible request
@@ -11,17 +14,26 @@ Note:
 '''
 
 import sys,os,time
+import logging
 from tqdm import tqdm
 import requests as req
 from multiprocessing.pool import ThreadPool
 from datetime import datetime as dt,timedelta as dtlt 
 
 
+logging.basicConfig(
+	filename='gfs_download.log', 
+	filemode='w', 
+	level=logging.INFO,
+	format= "%(asctime)s - %(levelname)s - %(message)s"
+)
+
+
 SLEEP_TIME = 1*60 # sec
 
 headers = {
-		'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:80.0) Gecko/20100101 Firefox/80.0'
-	}
+	'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:80.0) Gecko/20100101 Firefox/80.0'
+}
 
 def down_from_url(args):
 
@@ -35,11 +47,11 @@ def down_from_url(args):
 				for chunk in req_dat.iter_content(chunk_size=4096):
 					if chunk: gf.write(chunk)
 		else:
-			print(f'{gribfile} status!=200, sleeping then Respawning')
+			logging.info(f'{gribfile} status!=200, sleeping then Respawning')
 			time.sleep(SLEEP_TIME)
 			down_from_url(args)
 	except:
-		print(f'{gribfile}: sleeping then Respawning')
+		logging.info(f'{gribfile}: sleeping then Respawning')
 		time.sleep(SLEEP_TIME)
 		down_from_url(args)
 
@@ -47,9 +59,9 @@ def down_from_url(args):
 
 
 
-def build_url_list(fdate,sim_utc,grid_res='0p25',lead_day=10):
+def build_url_list(out_dir, fdate, sim_utc, grid_res='0p25', lead_day=10):
 
-	dst_dir = os.path.join(f'{fdate}{sim_utc}')
+	dst_dir = os.path.join(out_dir, f'{fdate}{sim_utc}')
 
 	if not os.path.exists(dst_dir): os.makedirs(dst_dir)		
 
@@ -79,9 +91,9 @@ def build_url_list(fdate,sim_utc,grid_res='0p25',lead_day=10):
 
 
 
-def main(date, sim_utc):
+def main(out_dir, date, sim_utc):
 
-	url_list = build_url_list(date, sim_utc)
+	url_list = build_url_list(out_dir, date, sim_utc)
 	total_calls = len(url_list)
 	
 	thread_pool = ThreadPool(5)
@@ -94,8 +106,8 @@ def main(date, sim_utc):
 
 
 if __name__ == '__main__':
-	if len(sys.argv)==3:
-		_, date, sim_utc = sys.argv
-		main(date, int(sim_utc))
+	if len(sys.argv)==4:
+		_, out_dir, date, sim_utc = sys.argv
+		main(out_dir, date, int(sim_utc))
 	else:
-		print('Insufficient arguments. privide date(yyyymmdd) and sim_utc(00/12)')
+		print('Insufficient arguments. privide output_path, date(yyyymmdd) and sim_utc(00/12)')
