@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #: wrf model automation script
 #: written by Quamrul Hasan, Meteorologis, BMD
 #: modified by Nazmul Ahasan, CIL, RIMES

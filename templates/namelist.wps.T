@@ -38,7 +38,7 @@
  truelat1  =  22.0,
  truelat2  =  22.0,
  stand_lon =  90.0,
- geog_data_path = '/disk1/quamrul/WPS_GEOG/'
+ geog_data_path = '{{geog_data}}'
 /
 
 &ungrib

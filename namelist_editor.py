@@ -54,6 +54,7 @@ def main(start_date:str, sim_utc:str):
 	data_nw = {
 		'start_date': full_start_date,
 		'end_date'  : full_end_date,
+		'geog_data' : conf.geog_data,
 	}
 
 	save_namelist_wps(data_nw)

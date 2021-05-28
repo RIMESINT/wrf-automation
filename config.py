@@ -9,7 +9,8 @@ physics  = 3    # not using right now
 # [modify these dirs]
 arwpost_dir = './test/'
 wps_dir     = './test/'
-wrf_dir     = './test/'  # namelist.input & output file location
+wrf_dir     = './test/'                   # namelist.input & output file location
+geog_data   = '/disk1/quamrul/WPS_GEOG/'  # path where geog data is located
 
 arwpost_output_dir   = './test/ARWpost'   # where the output files will be
 arwpost_date_sep_dir = True               # wheather to create directory with date
