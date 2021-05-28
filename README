@@ -1,4 +1,9 @@
 # Remember to edit
 - edit geog path in namelist.wps.t 
 
-# To-do
+# Add these using `sudo visudo` 
+    quamrul ALL=(ALL) NOPASSWD: /usr/bin/cpupower
+    quamrul ALL=(ALL) NOPASSWD: /disk1/quamrul/drop_memcache.sh
+    quamrul ALL=(ALL) NOPASSWD: /disk1/quamrul/disable_aslr_numabal.sh
+
+

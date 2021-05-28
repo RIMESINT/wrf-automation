@@ -44,7 +44,7 @@ scp -r rimes@srv02.rimes.bmd:$REMOTE_FILE_DIR ./
 echo "::end gfs download     @ `date`" >> $DEBUG_LOG
 
 # change configuration files [always for 10 day]
-python3 $BASE_DIR/wrf-automation/namelist_editor.py $INIT_DATE $INIT_TIME
+python3 $BASE_DIR/namelist_editor.py $INIT_DATE $INIT_TIME
 
 
 # execute wps.exe
