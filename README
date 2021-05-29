@@ -1,7 +1,15 @@
-# Remember to edit
-- edit geog path in namelist.wps.t 
+** System Detail **
+    Dell R 6525
+    2x AMD 7702 64 core processor
+    128GB RAM
+    OS: Ubuntu 18.04 LTS
 
-# Add these using `sudo visudo` 
+#1) install python packages
+    pip3 insall -r requiremetss.txt
+
+#2) edit required directory in config.py 
+
+#3) Add these using `sudo visudo` 
     quamrul ALL=(ALL) NOPASSWD: /usr/bin/cpupower
     quamrul ALL=(ALL) NOPASSWD: /disk1/quamrul/drop_memcache.sh
     quamrul ALL=(ALL) NOPASSWD: /disk1/quamrul/disable_aslr_numabal.sh
