@@ -11,10 +11,11 @@ arwpost_dir = './test/'
 wps_dir     = './test/'
 wrf_dir     = './test/'                   # namelist.input & output file location
 geog_data   = '/disk1/quamrul/WPS_GEOG/'  # path where geog data is located
-
 arwpost_output_dir   = './test/ARWpost'   # where the output files will be
 arwpost_date_sep_dir = True               # wheather to create directory with date
 
+gfs_down_dir         = './test/gfs_data/' # gfs data download location
+gfs_res              = '0p25'
 
 # template location
 template_root_dir  = os.path.join(base_dir,'templates')
