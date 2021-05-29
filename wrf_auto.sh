@@ -48,7 +48,7 @@ rm GFS*
 # link gfs grib files
 ./link_grib.csh ${GFS_DIR}/${INIT_DATE}${INIT_TIME}/gfs* ./
 
-# execute geogrid+ungrib_metgrid
+# execute geogrid+ungrib+metgrid
 ./geogrid.exe
 ./ungrib.exe
 ./metgrid.exe

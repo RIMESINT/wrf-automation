@@ -59,21 +59,15 @@ def down_from_url(args):
 
 
 
-def build_url_list(dst_dir, fdate, sim_utc, grid_res='0p25', lead_day=10):
+def build_url_list(dst_dir, fdate, sim_utc):
 	
     grid_res = conf.gfs_res
-    lead_day = conf.num_day
-
-    subregion={
-        'llon' : 30,
-        'rlon' : 130,
-        'tlat' : 50,
-        'blat' : -10
-    }
+    num_day  = conf.num_day
+    grid_res = conf.gfs_crop_region
 
     URL_LIST=[]
 
-    for FT in range(0,(lead_day*24)+6,6):
+    for FT in range(0,(num_day*24)+6,6):
         
         gribfile = f'gfs.t{sim_utc}z.pgrb2.{grid_res}.f{FT:03d}'
 

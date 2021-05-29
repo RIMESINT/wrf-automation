@@ -16,6 +16,12 @@ arwpost_date_sep_dir = True               # wheather to create directory with da
 
 gfs_down_dir         = './test/gfs_data/' # gfs data download location
 gfs_res              = '0p25'
+gfs_crop_region      = {
+                        'llon' : 30,
+                        'rlon' : 130,
+                        'tlat' : 50,
+                        'blat' : -10
+                    }
 
 # template location
 template_root_dir  = os.path.join(base_dir,'templates')
